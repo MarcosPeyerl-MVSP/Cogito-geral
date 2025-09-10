@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cogito - Trabalhos Acadêmicos</title>
+  <style>
+    :root{
+      --bg: #0a0d14;
+      --bg-soft: #0f1522;
+      --card: #121a2b;
+      --brand: #ffde59;      /* amarelo */
+      --brand-2: #ffde59;    /* amarelo */
+      --accent: #ffde59;     /* amarelo */
+      --text: #e7eef8;
+      --muted: #9fb0c7;
+      --danger: #ff6b6b;
+      --highlight: #ffde59;  /* amarelo */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius-xl: 20px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: "Lexend Peta", Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 90% -10%, rgba(255,222,89,.35) 0%, rgba(255,222,89,0) 60%),
+        radial-gradient(1000px 800px at -10% 10%, rgba(255,222,89,.35) 0%, rgba(255,222,89,0) 55%),
+        linear-gradient(180deg, #0a0d14 0%, #0a0d14 100%);
+      background-attachment: fixed;
+    }
+    a{color:inherit; text-decoration:none}
+    
+    /* Header */
+    .site-wrap{display:flex; flex-direction:column; min-height:100dvh}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: saturate(1.2) blur(10px);
+      background: color-mix(in lab, var(--bg) 70%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{max-width:1180px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:18px}
+    .logo{display:flex; align-items:center; gap:12px; font-family:"Lexend Peta", sans-serif; font-weight:700; font-size:20px}
+    .logo span{color:#fff}
+    .logo span:last-child{color:var(--highlight)}
+    .grow{flex:1}
+    .nav-links{display:flex; gap:16px; align-items:center}
+    .pill{padding:10px 14px; border-radius:999px; background: rgba(255,255,255,.06); color:var(--text); font-weight:500; border:1px solid rgba(255,255,255,.08)}
+    .pill:hover{background: rgba(255,255,255,.1)}
+    .btn{padding:10px 14px; border-radius:12px; font-weight:600; border:1px solid rgba(255,255,255,.12); box-shadow: var(--shadow)}
+    .btn-brand{background: linear-gradient(90deg, var(--brand), var(--brand-2)); color:#06111a}
+    .btn-ghost{background: rgba(255,255,255,.06); color:var(--text)}
+    
+    /* Main Content */
+    .main-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+    }
+    
+    /* Post Feed */
+    .post-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    /* Post Card */
+    .post-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      transition: all 0.2s ease;
+    }
+    
+    .post-card:hover {
+      border-color: rgba(255,255,255,.2);
+      transform: translateY(-2px);
+    }
+    
+    .vote-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px 8px 8px;
+      min-width: 50px;
+    }
+    
+    .vote-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 20px;
+      padding: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .vote-btn:hover {
+      color: var(--brand);
+    }
+    
+    .upvote-btn:hover {
+      color: #ff5858;
+    }
+    
+    .downvote-btn:hover {
+      color: #5c73e0;
+    }
+    
+    .vote-count {
+      font-weight: 700;
+      font-size: 14px;
+      margin: 4px 0;
+      color: var(--text);
+    }
+    
+    .post-content {
+      flex: 1;
+    }
+    
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    
+    .post-author {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .post-tag {
+      background: rgba(255,222,89,.15);
+      color: var(--brand);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    
+    .post-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    
+    .post-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    
+    .post-actions {
+      display: flex;
+      gap: 16px;
+    }
+    
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .action-btn:hover {
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .sidebar-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      color: var(--text);
+    }
+    
+    .community-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .community-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .community-item:hover {
+      background: rgba(255,255,255,.06);
+    }
+    
+    .community-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--bg);
+    }
+    
+    .community-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    
+    .create-post-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      text-align: center;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      color: #06111a;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .create-post-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+    }
+    
+    /* Responsive */
+    @media (max-width: 960px){
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-wrap">
+    <header>
+      <nav class="nav" aria-label="Principal">
+        <a href="/" class="logo" aria-label="Página inicial">
+          <span>C</span><span>O</span><span>G</span><span>I</span><span>T</span><span>O</span><span style="color:var(--highlight)">O</span>
+        </a>
+        <div class="grow"></div>
+        <div class="nav-links">
+          <a class="pill" href="/pagtcc">TCC's</a>
+          <a class="pill" href="#ics">IC's</a>
+          <a class="pill" href="#mestrado">Mestrado</a>
+          <a class="pill" href="#doutorado">Doutorado</a>
+          <a class="btn btn-ghost" href="/login">Entrar</a>
+          <a class="btn btn-brand" href="#demo">Solicitar demo</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <div class="post-feed">
+        <!-- Post 1 -->
+        <article class="post-card">
+          <div class="vote-section">
+            <button class="vote-btn upvote-btn">▲</button>
+            <div class="vote-count">142</div>
+            <button class="vote-btn downvote-btn">▼</button>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-author">@maria_silva</span>
+              <span>•</span>
+              <span>há 4 horas</span>
+              <span class="post-tag">TCC</span>
+            </div>
+            <h3 class="post-title">Análise do Impacto das Mudanças Climáticas na Agricultura Brasileira</h3>
+            <p class="post-body">Este trabalho analisa os efeitos das mudanças climáticas nos principais cultivos agrícolas do Brasil, com foco nas regiões Sul e Sudeste. Foram utilizados dados meteorológicos dos últimos 30 anos e modelos preditivos para...</p>
+            <div class="post-actions">
+              <button class="action-btn">
+                <span>💬</span>
+                <span>48 comentários</span>
+              </button>
+              <button class="action-btn">
+                <span>↗</span>
+                <span>Compartilhar</span>
+              </button>
+              <button class="action-btn">
+                <span>📌</span>
+                <span>Salvar</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="post-card">
+          <div class="vote-section">
+            <button class="vote-btn upvote-btn">▲</button>
+            <div class="vote-count">89</div>
+            <button class="vote-btn downvote-btn">▼</button>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-author">@carlos_lima</span>
+              <span>•</span>
+              <span>há 8 horas</span>
+              <span class="post-tag">IC</span>
+            </div>
+            <h3 class="post-title">Desenvolvimento de Nanomateriais para Aplicações em Energia Solar</h3>
+            <p class="post-body">Esta pesquisa investiga a síntese e caracterização de novos nanomateriais para aumentar a eficiência de células solares. Os resultados mostram um aumento de 15% na eficiência de conversão energética comparado aos materiais convencionais...</p>
+            <div class="post-actions">
+              <button class="action-btn">
+                <span>💬</span>
+                <span>32 comentários</span>
+              </button>
+              <button class="action-btn">
+                <span>↗</span>
+                <span>Compartilhar</span>
+              </button>
+              <button class="action-btn">
+                <span>📌</span>
+                <span>Salvar</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article class="post-card">
+          <div class="vote-section">
+            <button class="vote-btn upvote-btn">▲</button>
+            <div class="vote-count">217</div>
+            <button class="vote-btn downvote-btn">▼</button>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-author">@ana_oliveira</span>
+              <span>•</span>
+              <span>há 1 dia</span>
+              <span class="post-tag">Mestrado</span>
+            </div>
+            <h3 class="post-title">Políticas Públicas de Educação Inclusiva: Um Estudo Comparativo entre Brasil e Canadá</h3>
+            <p class="post-body">Dissertação que analisa as políticas de educação inclusiva implementadas no Brasil e no Canadá entre 2010-2020, identificando pontos fortes, desafios e propostas de melhorias para o contexto brasileiro...</p>
+            <div class="post-actions">
+              <button class="action-btn">
+                <span>💬</span>
+                <span>76 comentários</span>
+              </button>
+              <button class="action-btn">
+                <span>↗</span>
+                <span>Compartilhar</span>
+              </button>
+              <button class="action-btn">
+                <span>📌</span>
+                <span>Salvar</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 4 -->
+        <article class="post-card">
+          <div class="vote-section">
+            <button class="vote-btn upvote-btn">▲</button>
+            <div class="vote-count">154</div>
+            <button class="vote-btn downvote-btn">▼</button>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="post-author">@joao_santos</span>
+              <span>•</span>
+              <span>há 2 dias</span>
+              <span class="post-tag">Doutorado</span>
+            </div>
+            <h3 class="post-title">Inteligência Artificial Aplicada ao Diagnóstico Precoce de Doenças Neurodegenerativas</h3>
+            <p class="post-body">Tese de doutorado que desenvolve e valida um novo algoritmo de aprendizado de máquina para detecção precoce de Alzheimer e Parkinson através de imagens de ressonância magnética, com precisão de 94% em testes preliminares...</p>
+            <div class="post-actions">
+              <button class="action-btn">
+                <span>💬</span>
+                <span>63 comentários</span>
+              </button>
+              <button class="action-btn">
+                <span>↗</span>
+                <span>Compartilhar</span>
+              </button>
+              <button class="action-btn">
+                <span>📌</span>
+                <span>Salvar</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Comunidades</h3>
+          <div class="community-list">
+            <a href="#" class="community-item">
+              <div class="community-icon">T</div>
+              <div class="community-name">Trabalhos de Conclusão</div>
+            </a>
+            <a href="#" class="community-item">
+              <div class="community-icon">I</div>
+              <div class="community-name">Iniciação Científica</div>
+            </a>
+            <a href="#" class="community-item">
+              <div class="community-icon">M</div>
+              <div class="community-name">Mestrado</div>
+            </a>
+            <a href="#" class="community-item">
+              <div class="community-icon">D</div>
+              <div class="community-name">Doutorado</div>
+            </a>
+          </div>
+          <button class="create-post-btn">Criar Postagem</button>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Em Alta</h3>
+          <div class="community-list">
+            <a href="#" class="community-item">
+              <span>1</span>
+              <div class="community-name">Inteligência Artificial na Educação</div>
+            </a>
+            <a href="#" class="community-item">
+              <span>2</span>
+              <div class="community-name">Sustentabilidade Urbana</div>
+            </a>
+            <a href="#" class="community-item">
+              <span>3</span>
+              <div class="community-name">Bioinformática Avançada</div>
+            </a>
+            <a href="#" class="community-item">
+              <span>4</span>
+              <div class="community-name">Economia Circular</div>
+            </a>
+            <a href="#" class="community-item">
+              <span>5</span>
+              <div class="community-name">Psicologia Positiva</div>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Sistema de votação
+    document.querySelectorAll('.vote-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const voteSection = this.closest('.vote-section');
+        const voteCount = voteSection.querySelector('.vote-count');
+        let count = parseInt(voteCount.textContent);
+        
+        if (this.classList.contains('upvote-btn')) {
+          count++;
+        } else if (this.classList.contains('downvote-btn')) {
+          count--;
+        }
+        
+        voteCount.textContent = count;
+        
+        // Feedback visual
+        this.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 200);
+      });
+    });
+
+    // Sistema de interação com posts
+    document.querySelectorAll('.action-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Simular ações como comentar, compartilhar, salvar
+        this.style.color = 'var(--brand)';
+        setTimeout(() => {
+          this.style.color = '';
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>

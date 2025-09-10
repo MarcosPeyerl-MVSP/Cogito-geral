@@ -137,6 +137,9 @@ def editarperfil():
 def favicon():
     return send_from_directory('static', 'favicon.ico')
 
+@app.route('/pagtcc')
+def Tcc():
+    return render_template('pagtcc.html')
 
 if __name__ == '__main__':
     init_db()

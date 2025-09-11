@@ -43,6 +43,48 @@ a {
     text-decoration: none;
 }
 
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px;
+  }
+  
+  .logo span {
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover effect on all letters */
+  .logo span:hover {
+    transform: translateY(-8px);
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Underlined yellow "O" */
+  .underline-o {
+    color: var(--highlight);
+    position: relative;
+    text-decoration: none;
+  }
+  
+  .underline-o::after {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 5px;
+    background-color: var(--text);
+    bottom: -1px;
+    left: 18%;
+    border-radius: 3px;
+  }
+  
+  .highlight-apostrophe {
+    color: var(--highlight);
+  }
+
 .btn {
     padding: 10px 14px;
     border-radius: 12px;
@@ -140,6 +182,35 @@ a {
     margin-bottom: 30px;
 }
 
+.brand .logo {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* wrapper da marca dentro do card */
+.card .brand {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  /* garante mesmo espaçamento / visual do index */
+  .card .brand .logo {
+    display: inline-block;
+    letter-spacing: -0.5px;
+  }
+  
+  /* apóstrofo alinhado sem quebrar o kerning */
+  .card .brand .highlight-apostrophe {
+    color: var(--highlight);
+    position: relative;
+    top: -0.12em;
+    font-weight: 700;
+  }
+  
 .brand h1 {
     font-size: 28px;
     margin: 0;

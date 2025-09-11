@@ -10,20 +10,19 @@
 </head>
 
 <body>
+    <div class="site-wrap">
+        <div class="brand">
     <div class="card login" id="cadastro" aria-labelledby="titulo-cadastro">
-        <div class="brand" style="font-family: 'Lexend Peta', sans-serif;">
-            <h1
-                style="font-family: 'Lexend Peta', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: -0.5px;">
-                COGITO</h1>
-            <p style="font-family: 'Lexend Peta', sans-serif;">Quem disse cientista?</p>
-        </div>
+        <nav class="nav" aria-label="Principal">
+            <a href="/" class="logo" aria-label="Página inicial">
+              <span>C</span><span>o</span><span>g</span><span>i</span><span>t</span><span class="underline-o">o</span><span class="highlight-apostrophe">’</span>
+            </a>
 
         <h2 id="titulo-cadastro" style="font-family: 'Lexend Peta', sans-serif;">Criar uma conta</h2>
 
 
 
         <p>Preencha os dados abaixo para se cadastrar em nossa plataforma.</p>
-
         <form class="form" action="{{ url_for('cadastro') }}" method="post" aria-label="Formulário de cadastro">
             <label class="label" for="username">Nome de usuário</label>
             <input class="input" id="username" name="username" type="text" autocomplete="username"
@@ -98,6 +97,8 @@
             </div>
         </form>
     </div>
+    </div>
+</div>
 </body>
 
 </html>
